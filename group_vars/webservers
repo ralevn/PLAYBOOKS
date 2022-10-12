@@ -1,0 +1,7 @@
+---
+
+# Variables for servers in webserver host group
+
+http_port: 80
+# ssh_port: 1022
+# MaxRequestPerChild: 800

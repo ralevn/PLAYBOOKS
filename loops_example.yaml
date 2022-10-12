@@ -1,0 +1,16 @@
+---
+
+- hosts: all
+
+  tasks:
+    - name: Check status of services
+      shell: 
+        cmd: systemctl status {{ item  }}
+      register: status
+      loop:
+        - sshd.service
+        - rpcbind.service
+        - httpd.service
+      register: status
+    - debug:
+        var: status

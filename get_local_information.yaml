@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  connection: local
+
+  tasks:
+  - name: Get local information
+    ansible.builtin.debug:
+      var: hostvars[inventory_hostname]
+        ##      verbosity: 1
+    tags: all_info
+
+  - name: get Gateway
+    ansible.builtin.debug:
+      msg: System {{ inventory_hostname }} has gateway {{ ansible_default_ipv4.gateway }}
+    when: ansible_default_ipv4.gateway is defined
+    tags: gateway
+  - name: get IP4 addresses
+    ansible.builtin.debug:
+      msg: "{{ ansible_all_ipv4_addresses }}"
+    when: ansible_all_ipv4_addresses is defined
+    tags: ip4s

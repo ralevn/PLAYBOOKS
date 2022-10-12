@@ -1,0 +1,11 @@
+---
+
+- hosts: all
+
+  tasks:
+    - name: Check status of rpcbind
+      shell:
+        cmd: systemctl status rpcbind.service
+      register: command_output
+    - debug:
+        var: command_output

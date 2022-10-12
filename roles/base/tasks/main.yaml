@@ -1,0 +1,9 @@
+---
+# This playbook contains base plays for all nodes
+
+- name: Install base packages (listed in variable base_packages)
+  yum: "name={{ item  }} state=present"
+  loop: "{{ base_packages  }}"
+
+- name: Start the firewalld service
+  service: name=firewalld state=started enabled=yes

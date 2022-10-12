@@ -1,0 +1,29 @@
+---
+
+- hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Creat ansible user group
+      group:
+        name: ansible
+        state: present
+        gid: 1040
+
+    - name: Create ansible user
+      user:
+        name: ansibleuser
+        uid: 1040 
+        group: ansible
+        groups: adm
+        password: "$6$mysecretsalt$FzKCTbe.ZD6cmEtmAeUiuvzDBqVKuEBpNuGO9lftdxWg69A4OLBoH6IwUs5r9Jv0Vxi/8adomfvH4HRRCKlQC1"
+        generate_ssh_key: yes
+
+    - name: Register results
+      shell:
+        cmd: (getent passwd;getent group)|grep -i ansib
+      register: result
+    - name: print results
+      debug:
+        var: result.stdout_lines
+

@@ -1,0 +1,22 @@
+---
+- hosts: all_hosts
+  become: yes
+  tasks:
+    - name: Gather the package facts
+      ansible.builtin.package_facts:
+        manager: auto
+      tags: manage_packaage_facts
+    
+    - name: Print the package facts
+      ansible.builtin.debug:
+        var: ansible_facts.packages
+      tags: 
+        - print_package_facts
+    
+    - name: Check whether a package called python3 is installed
+      ansible.builtin.debug:
+        msg: "{{ ansible_facts.packages['python3'] | length }} versions of python3 are installed!"
+      when: "'python3' in ansible_facts.packages"
+      tags: 
+        - check_python3
+

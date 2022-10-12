@@ -1,0 +1,15 @@
+---
+- hosts: webservers
+
+  tasks:
+  - name: Ansible facts
+    debug:
+      msg:
+        - "Node: {{ inventory_hostname  }}"
+        - "Default GW: {{ ansible_default_ipv4.gateway }}"
+        - "IPs: {{ ansible_all_ipv4_addresses }}"
+        - "NIC1: {{ ansible_facts['ens34']['ipv4'] }}"
+        - "NIC2: {{ ansible_facts['ens33']['ipv4'] }}"
+        - "Using HOSTVARS to display IPs: "
+        - "{{ hostvars['centos9-2']['ansible_all_ipv4_addresses'] }}"
+

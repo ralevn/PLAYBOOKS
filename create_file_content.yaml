@@ -1,0 +1,17 @@
+---
+
+- hosts: all_hosts
+
+  tasks:
+
+    - name: Create file with content
+      copy:
+        dest: '{{work_dir}}/{{file_name}}'
+        force: no
+        content: |
+          line 01 
+          line 02
+
+## work_dir is defined in inventory file
+## file_name is defined at command level run:
+## ansible-playbook create_file.yaml -e file_name=created_by_ansible_playbook.file

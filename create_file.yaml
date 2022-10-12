@@ -1,0 +1,14 @@
+---
+- hosts: all_hosts
+
+  tasks:
+    - name: Create file in working directory
+      file:
+        dest: '{{work_dir}}/{{file_name}}'
+        state: touch
+      when: work_dir is defined
+
+
+## work_dir is defined in inventory file
+## file_name is defined at command level run:
+## ansible-playbook create_file.yaml -e file_name=created_by_ansible_playbook.file

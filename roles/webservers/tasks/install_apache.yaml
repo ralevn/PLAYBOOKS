@@ -1,0 +1,15 @@
+---
+# Installs apache
+
+- name: Install apache
+  yum: name=httpd state=present
+
+- name: Apache service state
+  service: name=httpd state=started enabled=yes
+
+- name: Start firewalld
+  service: name=firewalld state=started enabled=yes
+
+- name: Add firewall rule
+  firewalld: port={{ http_port }}/tcp permanent=true state=enabled immediate=yes
+ 

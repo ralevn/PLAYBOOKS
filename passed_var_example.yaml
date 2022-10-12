@@ -1,0 +1,16 @@
+---
+
+# Example to type: ansible-playbook -i hosts passed_var_example.yaml -e service="rpcbind"
+
+- hosts: webservers
+  gather_facts: no
+
+  tasks:
+    - name: Check status of passed name of a service
+      shell:
+        cmd: systemctl status {{ service  }}
+      register: result
+    
+    - name: Print Result
+      debug:
+        var: result.stdout_lines
