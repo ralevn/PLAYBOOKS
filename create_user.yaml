@@ -4,7 +4,7 @@
   gather_facts: no
 
   tasks:
-    - name: Creat ansible user group
+    - name: Create ansible user group
       group:
         name: ansible
         state: present
