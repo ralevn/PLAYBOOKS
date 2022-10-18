@@ -1,0 +1,34 @@
+---
+
+- hosts: webservers
+  gather_facts: no
+  become_user: ansibleuser
+
+  tasks:
+
+    - name: Create configuration file
+      copy:
+        dest: ~/config
+        force: yes
+        owner: ansibleuser
+        group: ansible
+        mode: '0644'
+        content: |
+          key1: value1
+          key2: value2
+     
+    - name: Create normal text file
+      copy:
+        dest: ~/textfile.txt
+        force: yes
+        owner: ansibleuser
+        group: ansible
+        mode: '644'
+        content: >
+          Whatever I write here. 
+          It will appear in one line.
+
+## "|" means new lines will be preserved. Other wise use ">"
+## work_dir is defined in inventory file
+## file_name is defined at command level run:
+## ansible-playbook create_file.yaml -e file_name=created_by_ansible_playbook.file

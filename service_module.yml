@@ -1,0 +1,16 @@
+---
+- hosts: webservers
+  gather_facts: no
+
+  tasks:
+    - name: Check service status
+      service:
+        name: httpd.service
+      register: service_status
+
+    - name: Print output
+      debug:
+        msg:
+          - "Service Status State Enabled"
+          - "{{ service_status['status']['Id'] }} {{service_status['status']['ActiveState'] }} {{ service_status['status']['SubState'] }} {{ service_status['status']['UnitFileState'] }}"
+

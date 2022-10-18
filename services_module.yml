@@ -1,0 +1,20 @@
+---
+ 
+## service module does not support lists for multiple services user loop
+ 
+- hosts: webservers
+  gather_facts: no
+
+  tasks:
+    - name: Start multiple services
+      service:
+        name: "{{ item }}"
+        state: started
+      loop: 
+        - httpd.service
+        - rsyslog.service
+      register: service_status
+
+    - name: Print output
+      debug:
+        msg: "{{ service_status['results'] }}"

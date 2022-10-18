@@ -1,6 +1,6 @@
 ---
 
-- hosts: webservers
+- hosts: all
   gather_facts: no
 
   tasks:
@@ -9,9 +9,7 @@
 
     - name: Output
       debug:
-        msg:
-          msg: 
-            - "{{ ansible_facts['services']['sshd.service'] }}"
+        msg: "{{ ansible_facts['services']['sshd.service'] }}"
 
 
 

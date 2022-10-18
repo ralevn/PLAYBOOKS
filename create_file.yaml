@@ -1,5 +1,6 @@
 ---
 - hosts: all_hosts
+  gather_facts: no
 
   tasks:
     - name: Create file in working directory

@@ -1,0 +1,18 @@
+---
+
+- name: Play to to demonstrate different ways of declaring variables
+  hosts: webservers
+  gather_facts: no
+
+  vars:
+    remote_dir: /DATA/
+    file_name: file0001.txt
+    line01: "First line of file"
+    line02: "Second line of file"
+
+  tasks:
+    - name: create empty file in {{ remote_dir }} 
+      file:
+        state: touch
+        path: "{{ remote_dir }}/{{ file_name }}"
+

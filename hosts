@@ -7,3 +7,10 @@ centos9-1 ansible_connection=local
 [all_hosts:children]
 dbservers
 webservers
+
+[dbservers:vars]
+work_dir=/WORK/
+
+[webservers:vars]
+work_dir=/DATA/
+

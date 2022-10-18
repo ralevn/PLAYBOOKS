@@ -2,15 +2,17 @@
 # This playbook deploys all site configs
 
 - name: apply base configuration to all sites
-  hosts: all_hosts
-  remote_user: root
+  hosts: all
+  remote_user: ansibleuser
+  become_user: root
 
   roles:
   - base
 
 - name: Configure webservers
   hosts: webservers
-  remote_user: root
+  remote_user: ansibleuser
+  become_user: root
 
   roles:
   - webservers

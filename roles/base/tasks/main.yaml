@@ -7,3 +7,12 @@
 
 - name: Start the firewalld service
   service: name=firewalld state=started enabled=yes
+
+- name: Add users with dictionaries
+  user:
+    name: "{{ item.name }}"
+    state: present
+    groups: "{{ item.groups  }}"
+  loop:
+    - { name: 'webadmin1', groups: 'adm' }
+    - { name: 'webadmin2', groups: 'wheel' }
