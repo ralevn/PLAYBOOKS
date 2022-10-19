@@ -1,0 +1,43 @@
+---
+- name: Using variables with include file
+  
+  hosts: webservers
+  vars_files: project_vars
+  gather_facts: no
+
+  tasks:
+    
+    - name: create directory {{ remote_dir2 }} in {{ remote_dir1 }}
+      file: 
+        state: directory
+        path: "/{{ remote_dir1 }}/{{ remote_dir2 }}"
+    
+    - name: check directory existence
+      shell:
+        cmd: ls -l /{{ remote_dir1 }} | grep {{ remote_dir2 }} 
+      register: cmd_out
+    
+    - name: ls -l /{{ remote_dir1 }} | grep {{ remote_dir2 }} 
+      debug:
+        var: cmd_out.stdout_lines
+
+    - name: create file {{ file_name1 }} 
+      copy:
+        dest: "/{{ remote_dir1 }}/{{ remote_dir2 }}/{{ file_name1 }}"
+        content: "{{ text1}}"
+    - name: create file {{ file_name2 }}
+      copy:
+        dest: "/{{ remote_dir1 }}/{{ remote_dir2 }}/{{ file_name2 }}"
+        content: "{{ text2}}"
+
+    - name: check {{ file_name1 }} and {{ file_name2 }}
+      shell:
+        cmd: cat /{{ remote_dir1 }}/{{ remote_dir2 }}/{{ file_name1 }} ;echo; cat /{{ remote_dir1 }}/{{ remote_dir2 }}/{{ file_name2 }}
+      register: cmd_out
+
+    - name: cat /{{ remote_dir1 }}/{{ remote_dir2 }}/{{ file_name1 }} ;echo; cat /{{ remote_dir1 }}/{{ remote_dir2 }}/{{ file_name2 }}
+      debug:
+        var: cmd_out.stdout_lines
+
+        
+

@@ -15,4 +15,8 @@
       file:
         state: touch
         path: "{{ remote_dir }}/{{ file_name }}"
+    - name: add content
+      copy:
+        dest: "{{ remote_dir }}/{{ file_name }}"
+        content: "{{ line01 }}\n{{ line02 }}" 
 
