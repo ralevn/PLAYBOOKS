@@ -2,6 +2,6 @@ remote_dir1: DATA
 remote_dir2: tmp
 file_name1: Text_1.file
 file_name2: Text_2.file
-text1: "Crede quod habes et habes"
-text2: "Si vis amari ama"
+text1: "      Crede quod habes et habes   "
+text2: "      Si vis amari ama            "
 
