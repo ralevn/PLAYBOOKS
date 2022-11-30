@@ -1,0 +1,32 @@
+---
+
+- hosts: localhost
+  gather_facts: False
+  tasks:
+
+    - name: Hello tag example
+      debug:
+        msg: "Hello!"
+      tags:
+        - hello
+
+    - name: No tag example
+      debug:
+        msg: "How are you?"
+
+    - name: Goodbye tag example
+      debug:
+        msg: "Goodbye!"
+      tags:
+        - goodbye
+
+    - name: block of tasks
+      block:
+        - name: stupid example
+          debug:
+            msg: "These are {{ hostvars }}"
+        - name: stupid example 2
+          debug:
+            msg: "Theese are {{ inventory_dir }} {{ inventory_file }}"
+          tags:
+            - magic_block

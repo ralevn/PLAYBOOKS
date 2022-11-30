@@ -1,0 +1,11 @@
+---
+- hosts: webservers
+  gather_facts: no
+
+  tasks:
+    - name: 
+      debug: 
+        msg= Item is "{{ item }}"
+      loop: [ 0,  2, 3, 4, 5 ]
+      when: item > 2
+

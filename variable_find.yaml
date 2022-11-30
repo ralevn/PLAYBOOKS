@@ -1,0 +1,17 @@
+---
+
+- name: example of variable.find
+  hosts: all
+  gather_facts: no
+  vars_prompt:
+    - name: searchuser
+      prompt: The user to be searched
+      private: false 
+
+  tasks:
+  - name: cat /etc/passwd
+    shell: cat /etc/passwd
+    register: paswd_content
+  - debug:
+      msg: passwd file contains {{ searchuser }}
+    when: paswd_content.stdout.find( searchuser ) != -1

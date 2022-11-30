@@ -1,0 +1,9 @@
+---
+- name: Conditional loop on facts
+  hosts: all
+  tasks: 
+  - name: check mount points and display only for boot and xfs
+    debug:
+      msg: "{{ item.mount }} : {{ item.device  }} "
+    loop: "{{ ansible_facts.mounts }}" 
+    when: item.mount=="/boot" or item.fstype=="xfs"

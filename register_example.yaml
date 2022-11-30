@@ -1,0 +1,10 @@
+---
+# demonstrate capturing command output in a variable
+  - hosts: webservers
+    gather_facts: no
+    tasks:
+      - name: get content of /etc/passwd
+        shell: cat /etc/passwd
+        register: passwd_contents
+      - debug:
+          var: passwd_contents 

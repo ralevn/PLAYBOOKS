@@ -1,0 +1,47 @@
+---
+
+- name: Demonstrate multivalued varaible simple usage with dot notation
+  hosts: webservers
+  vars_files: vars/user-dictionary-vars
+  gather_facts: no
+
+  tasks:
+  - name: print user dictionary values for linda
+    debug: 
+      msg: 
+        - "User: {{ users.linda.username }}"
+        - "Home: {{ users.linda.homedir}}"
+        - "Shell: {{ users.linda.shell}}"
+
+- name: Demonstrate multivalued varaible simple usage with square btrackets
+  hosts: webservers
+  vars_files: vars/user-dictionary-vars
+  gather_facts: no
+
+  tasks:
+  - name: print user dictionary values for linda
+    debug:
+      msg:
+        - "User: {{ users['linda']['username'] }}"
+        - "Home: {{ users['linda']['homedir'] }}"
+        - "Shell: {{ users['linda']['shell'] }}"
+
+- name: print the dictionary using loop
+  hosts: webservers
+  vars_files: vars/user-dictionary-vars
+  gather_facts: no
+
+  tasks:
+    - name: print all users using dict2items filter
+      debug:
+        msg: "User: {{ item.key }}; {{ item.value.username }}; {{ item.value.homedir }}; {{ item.value.shell }}"
+      loop: "{{ users|dict2items }}"
+
+    - name: print all users using lookup method
+      debug:
+        msg: 
+          - "User: {{ item.key }};"
+          - "username: {{ item.value.username }};" 
+          - "homedir: {{ item.value.homedir }};" 
+          - "shell: {{ item.value.shell }}"
+      loop: "{{ query('dict', users) }}"

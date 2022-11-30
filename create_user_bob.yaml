@@ -1,0 +1,16 @@
+---
+
+# create user bob with vaulted variables
+
+- hosts: webservers
+  gather_facts: no
+  vars_files:
+    - vars/secrets.yaml   
+  
+  tasks:
+    - name: create user bob
+      user:
+        name: "{{ username }}"
+        password: "{{ pwhash  }}"
+
+

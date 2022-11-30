@@ -1,0 +1,18 @@
+---
+# This playbook registers the output of a loop to a variable
+- hosts: webservers
+  gather_facts: no
+  tasks:
+    - name: "Output loop to registered var" 
+      shell: "echo {{ item }}"
+      #shell: "cat {{ item }}"
+      loop: 
+        - "one"
+        - "two"
+      register: echo
+
+    - name: Fail if rc is not 0
+      fail: 
+        msg: "The command ({{ item.cmd }}) had a non-zero return code"
+      when: item.rc != 0
+      loop: "{{ echo.results }}"
