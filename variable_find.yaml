@@ -9,9 +9,16 @@
       private: false 
 
   tasks:
-  - name: cat /etc/passwd
-    shell: cat /etc/passwd
-    register: paswd_content
-  - debug:
-      msg: passwd file contains {{ searchuser }}
-    when: paswd_content.stdout.find( searchuser ) != -1
+    - name: cat /etc/passwd
+      shell: cat /etc/passwd
+      register: paswd_content
+    - block:
+      - debug:
+          msg: "{{ paswd_content.stdout_lines }}"
+      - debug:
+          msg: "{{ searchuser }}"
+      - debug:
+          msg: passwd file contains {{ searchuser }}
+      when: paswd_content.stdout.find( searchuser ) != -1
+    - debug:
+        msg: "{{ paswd_content.stdout.find }}"
