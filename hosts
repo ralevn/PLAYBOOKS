@@ -1,8 +1,20 @@
 [webservers]
-centos9-2 
+centos9-2
+ubuntu204
 
 [dbservers]
 centos9-1 ansible_connection=local
+centos8-vb
+centos9-vb
+
+[centoses]
+centos9-1 ansible_connection=local
+centos8-vb
+centos9-vb
+centos9-2
+
+[ubuntu]
+ubuntu204
 
 [all_hosts:children]
 dbservers
