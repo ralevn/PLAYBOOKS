@@ -1,0 +1,23 @@
+---
+- name: Interactive Shutdown Playbook
+  hosts: localhost
+  gather_facts: false
+
+  vars_prompt:
+    - name: "host_group_name"
+      prompt: "Enter the host group name to perform shutdown (kubernets_hosts, ubuntu_hosts, Redhat_host, webservers, dbservers, remote_hosts, all_hosts)"
+      private: no
+    - name: "action"
+      prompt: "Enter the action (shutdown/reboot)"
+      private: no
+
+  tasks:
+    - name: Shutdown specified host group
+      block:
+        - name: Shutdown hosts
+          shell: "{{ action  }} now"
+          delegate_to: "{{ item }}"
+          with_items: "{{ groups[host_group_name] }}"
+          run_once: true
+      when: host_group_name in groups
+

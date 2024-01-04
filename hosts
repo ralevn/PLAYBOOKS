@@ -1,28 +1,38 @@
+
+[local_host]
+rhel9-vb ansible_connection=local
+
+[remote_hosts]
+centos8-vb.localnet 
+centos9-vb.localnet 
+ubuntu2204-vb.local 
+ubuntu2204-2vb.local
+
+[kubernets_hosts]
+ubuntu2204-vb.local
+ubuntu2204-2vb.local
+centos9-vb.localnet
+
+[ubuntu_hosts]
+ubuntu2204-vb.local
+ubuntu2204-2vb.local
+
+[Redhat_host]
+rhel9-vb
+centos8-vb.localnet
+centos9-vb.localnet
+
 [webservers]
-centos9-2
-ubuntu204
+centos8-vb.localnet
+centos9-vb.localnet
 
 [dbservers]
-centos9-1 ansible_connection=local
-centos8-vb
-centos9-vb
-
-[centoses]
-centos9-1 ansible_connection=local
-centos8-vb
-centos9-vb
-centos9-2
-
-[ubuntu]
-ubuntu204
+rhel9-vb
 
 [all_hosts:children]
-dbservers
-webservers
+local_host
+remote_hosts
 
-[dbservers:vars]
-work_dir=/WORK/
-
-[webservers:vars]
-work_dir=/DATA/
-
+[all:vars]
+temp_dir=/tmp
+ansible_user=ansible
